@@ -1,0 +1,57 @@
+{
+  "schema_version": "sharpeshooter.research-task.v1",
+  "client_task_id": "hw9-defensive-reversal-1",
+  "idea": {
+    "title": "Bounded defensive short-horizon reversal",
+    "hypothesis": "Recent relative underperformance combined with a volatility screen may identify a synthetic short-horizon reversal candidate.",
+    "rationale": "Compare two prespecified long-only reversal variants under the same deterministic synthetic evaluator and pass the reviewed result to a human research queue.",
+    "sources": [
+      {
+        "uri": "https://doi.org/10.1111/j.1540-6261.1990.tb02430.x",
+        "label": "Jegadeesh (1990)",
+        "accessed_on": "2026-11-17"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "reversal-1m-lowvol",
+      "strategy_spec": {
+        "name": "One-month reversal with volatility screen",
+        "universe": "point-in-time eligible equities below the median trailing volatility",
+        "signal": "negative trailing one-month total return",
+        "entry_rule": "enter the strongest reversal-signal quintile",
+        "exit_rule": "exit outside the strongest two reversal-signal quintiles",
+        "position_sizing": "equal weight, long only",
+        "rebalance": "monthly",
+        "parameters": {
+          "lookback_months": 1,
+          "entry_quantile": 0.8,
+          "exit_quantile": 0.6,
+          "volatility_quantile_max": 0.5,
+          "max_position_weight": 0.08
+        }
+      }
+    },
+    {
+      "candidate_id": "reversal-2m-lowvol",
+      "strategy_spec": {
+        "name": "Two-month reversal with volatility screen",
+        "universe": "point-in-time eligible equities below the median trailing volatility",
+        "signal": "negative trailing two-month total return",
+        "entry_rule": "enter the strongest reversal-signal quintile",
+        "exit_rule": "exit outside the strongest two reversal-signal quintiles",
+        "position_sizing": "equal weight, long only",
+        "rebalance": "monthly",
+        "parameters": {
+          "lookback_months": 2,
+          "entry_quantile": 0.8,
+          "exit_quantile": 0.6,
+          "volatility_quantile_max": 0.5,
+          "max_position_weight": 0.08
+        }
+      }
+    }
+  ],
+  "selected_candidate_id": "reversal-1m-lowvol"
+}
